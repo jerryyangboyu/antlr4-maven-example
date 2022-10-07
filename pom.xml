@@ -16,7 +16,7 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
-            <version>4.1</version>
+            <version>4.7</version>
         </dependency>
     </dependencies>
 
@@ -34,7 +34,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>org.antlrfun.Hello</mainClass>
+                    <mainClass>org.antlrfun.hello.Hello</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -73,10 +73,9 @@
             <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
-                <version>4.1</version>
+                <version>4.7</version>
                 <configuration>
                     <sourceDirectory>src/main/java</sourceDirectory>
-                    <outputDirectory>src/main/generated-sources</outputDirectory>
                 </configuration>
                 <executions>
                     <execution>

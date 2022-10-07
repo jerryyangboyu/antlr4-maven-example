@@ -1,0 +1,24 @@
+/*
+    This program defines a C like syntax for common arithmetic calculations.
+    The original un-broken version of this program
+*/
+grammar Expr;
+
+prog: statement+;
+
+statement: expr NEWLINE
+        | ID '=' expr NEWLINE
+        | NEWLINE
+        ;
+
+expr: expr ('*' | '/') expr
+    | expr ('+' | '-') expr
+    | '(' expr ')'
+    | INT
+    | ID
+    ;
+
+ID: [a-zA-Z_][a-zA-Z0-9_]*; // identifier for variables
+INT: [0-9]+;
+NEWLINE: '\r'? '\n'; // Windows and Unix newlines, question mark stands for optional
+WS: [ \t]+ -> skip; // skip whitespace and tabs

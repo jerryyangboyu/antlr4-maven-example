@@ -1,4 +1,4 @@
-package org.antlrfun;
+package org.antlrfun.hello;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;

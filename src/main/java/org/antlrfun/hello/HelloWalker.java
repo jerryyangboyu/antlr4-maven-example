@@ -1,4 +1,4 @@
-package org.antlrfun;
+package org.antlrfun.hello;
 
 public class HelloWalker extends HelloBaseListener {
     public void enterR(HelloParser.RContext ctx) {
