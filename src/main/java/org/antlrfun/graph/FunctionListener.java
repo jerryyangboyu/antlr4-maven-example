@@ -1,5 +1,8 @@
 package org.antlrfun.graph;
 
+import org.antlrfun.CymbolBaseListener;
+import org.antlrfun.CymbolParser;
+
 public class FunctionListener extends CymbolBaseListener {
     Graph graph = new Graph();
     String currentFunctionName;

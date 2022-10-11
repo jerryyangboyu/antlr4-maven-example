@@ -42,6 +42,10 @@ expr:   ID '(' exprList? ')'    #Call // func call like f(), f(x), f(1,2)
     ;
 exprList : expr (',' expr)* ;   // arg list
 
+K_FLOAT : 'float';
+K_INT   : 'int';
+K_VOID  : 'void';
+
 ID  :   LETTER (LETTER | [0-9])* ;
 fragment
 LETTER : [a-zA-Z] ;

@@ -1,4 +1,4 @@
-package org.antlrfun.graph;
+package org.antlrfun.symbol;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -7,26 +7,28 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlrfun.CymbolLexer;
 import org.antlrfun.CymbolParser;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-public class CallGraph {
+public class CheckSymbols {
     public static void main(String[] args) {
-        try (FileInputStream in = new FileInputStream("ackerman.cymbol.txt")) {
+        try (InputStream in = Files.newInputStream(Paths.get("vars.cymbol.txt"))) {
             CymbolLexer lexer = new CymbolLexer(CharStreams.fromStream(in));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             CymbolParser parser = new CymbolParser(tokens);
-
             ParseTree tree = parser.file();
             ParseTreeWalker walker = new ParseTreeWalker();
-            FunctionListener listener = new FunctionListener();
-            walker.walk(listener, tree);
 
-            System.out.println(listener.graph.toDOT());
-            System.out.println(listener.graph.toString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            // first pass: define symbols
+            DefPhase defPhase = new DefPhase();
+            walker.walk(defPhase, tree);
+
+            // second pass: use symbols
+            RefPhase refPhase = new RefPhase(defPhase.globals, defPhase.scopes);
+            walker.walk(refPhase, tree);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
-
